@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wrap God — Privacy Policy</title>
+<meta name="description" content="How the Wrap God browser extension handles information: what it can see, what it keeps on your computer, and where anything goes.">
+<style>
+  /* Wrap God privacy policy - single self-contained file, no external assets,
+     so it can be dropped on any static host. Palette matches the Wrap God
+     document set (security brief / architecture walkthrough): deliberately
+     one dark theme, with the background painted explicitly. */
+  :root {
+    --ink:      #c9d6e6;
+    --ink-hi:   #e8f1fa;
+    --ink-lo:   #7e94ac;
+    --accent:   #57c0ff;
+    --accent-2: #9fd0ff;
+    --line:     rgba(122,162,247,.22);
+    --card:     rgba(23,33,52,.55);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: #0b1220;
+    background-image: linear-gradient(160deg, #0b1220 0%, #0e1626 55%, #101a2e 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 40px 22px 90px; }
+
+  /* masthead */
+  .mast { display: flex; align-items: flex-start; gap: 16px; position: relative; padding-bottom: 20px; margin-bottom: 26px; }
+  .mast::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--accent), rgba(87,192,255,0)); }
+  .mast img { width: 56px; height: 56px; border-radius: 14px; flex: none; }
+  .kick { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  h1 { font-size: clamp(28px, 6vw, 38px); letter-spacing: -.8px; margin: 0; color: #fff; font-weight: 700; text-wrap: balance; }
+  .stamp { margin-top: 8px; font-size: 13px; color: var(--ink-lo); }
+  .stamp b { color: var(--accent-2); font-weight: 600; }
+
+  h2 { font-size: 20px; margin: 40px 0 12px; color: #fff; font-weight: 700; letter-spacing: -.2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); text-wrap: balance; }
+  h3 { font-size: 16px; margin: 24px 0 6px; color: var(--accent-2); font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  b, strong { color: var(--ink-hi); font-weight: 600; }
+  a { color: var(--accent-2); }
+  code { font-family: Consolas, "SF Mono", Menlo, monospace; font-size: .88em; background: rgba(87,192,255,.12); color: var(--accent-2); padding: 1px 5px; border-radius: 4px; word-break: break-all; }
+
+  .lede { font-size: 17px; color: var(--ink-hi); }
+
+  .card { border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 12px; padding: 18px 20px; background: var(--card); margin: 22px 0; }
+  .card h3 { margin-top: 0; }
+  .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+
+  .note { border: 1px solid rgba(217,154,43,.4); border-left: 3px solid #d99a2b; background: rgba(217,154,43,.08); padding: 14px 18px; margin: 22px 0; border-radius: 0 10px 10px 0; color: #d9c9a8; }
+  .note b { color: #f0c96a; }
+  .note p:last-child { margin-bottom: 0; }
+
+  .never { list-style: none; padding-left: 0; }
+  .never li { position: relative; padding-left: 30px; margin-bottom: 10px; }
+  .never li::before { content: '\2715'; position: absolute; left: 6px; top: -1px; color: #ff8a94; font-weight: 700; }
+
+  .scroll { overflow-x: auto; margin: 16px 0 20px; border-radius: 10px; border: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 520px; }
+  th { text-align: left; background: rgba(87,192,255,.1); color: var(--accent-2); font-size: 11.5px; text-transform: uppercase; letter-spacing: .8px; padding: 10px 14px; border-bottom: 1.5px solid rgba(122,162,247,.35); font-weight: 700; }
+  td { padding: 11px 14px; border-bottom: 1px solid rgba(122,162,247,.13); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td.v { color: var(--ink-hi); font-weight: 600; }
+  td code { display: inline-block; }
+
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-lo); }
+  footer b { color: var(--accent-2); font-weight: 600; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 28px 16px 70px; }
+    .mast img { width: 44px; height: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <img src="data:image/png;base64,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" alt="" width="56" height="56">
+    <div>
+      <div class="kick">Chrome &amp; Edge Extension</div>
+      <h1>Wrap God Privacy Policy</h1>
+      <div class="stamp">Last updated <b>10 September 2026</b> &middot; applies to every published version of the extension</div>
+    </div>
+  </header>
+
+  <p class="lede">Wrap God is a browser extension that adds tools to the work sites used by Freedom Mobile
+  call-centre agents. It has no server of its own. It does not send what it reads to its author or to any
+  analytics service, and everything it remembers is kept in your own browser on your own computer.</p>
+
+  <p>This page explains that in full: what the extension can see, what it writes down, how long it keeps it,
+  and every place information can travel to.</p>
+
+  <div class="card">
+    <h3>The short version</h3>
+    <ul class="never">
+      <li>There is <b>no Wrap God server</b>. Nothing is uploaded to the developer &mdash; not settings, not
+        page content, not usage.</li>
+      <li>There are <b>no analytics, no tracking, no advertising</b> and no third-party trackers of any kind.</li>
+      <li>Nothing is <b>sold, shared or transferred</b> to anyone.</li>
+      <li>Nothing <b>syncs</b>. The extension uses local storage only, so its data never rides your browser
+        profile to another machine.</li>
+      <li>No <b>remote code</b> is downloaded or run. Everything the extension executes ships inside the
+        package Google reviewed.</li>
+      <li><b>Removing the extension deletes everything it kept.</b></li>
+    </ul>
+  </div>
+
+  <h2>1. Who this policy is from</h2>
+  <p>Wrap God is built and maintained by its author, <b>David Angel</b>, and published on the Chrome Web Store
+  under that developer account. It is a productivity tool for call-centre agents.</p>
+  <p>This policy covers <b>the extension itself</b>. The work systems it runs on &mdash; the customer
+  management, telephony, workforce and knowledge-base sites listed below &mdash; are operated by Freedom Mobile,
+  Quebecor and their suppliers, and are governed by those organisations' own policies, not by this one.</p>
+
+  <h2>2. Where the extension runs</h2>
+  <p>Wrap God is inert everywhere except a fixed list of work sites. It cannot see, and is never loaded into,
+  any other page you visit &mdash; your personal browsing, banking, mail and everything else are outside its
+  reach entirely, by design and by the permissions Google enforces.</p>
+  <p>The sites it runs on are the customer management system, the agent desktop and telephony client, the
+  workforce-management portal, the internal knowledge base, the internal ordering and activation portals, the
+  public store locator and coverage map, a shipping carrier's tracking page, and an internal Microsoft Forms
+  request form. Two further sites &mdash; the self-serve site and the payment portal &mdash; are
+  <b>optional</b>: the extension asks for them separately, by name, the first time you use the feature that
+  needs one, and works without them if you say no.</p>
+
+  <h2>3. What the extension can see</h2>
+  <p>On those sites, Wrap God reads the page you are already looking at. On the customer-facing ones that
+  includes <b>customer account information</b> &mdash; names, phone numbers, addresses, account and case
+  details, and notes an agent writes &mdash; because that is what the tools work with: filling a note,
+  pre-filling a form, checking a device or an address. On the workforce site it reads <b>your own</b> schedule
+  and handled-call statistics to run the on-screen clock.</p>
+  <p>It sees this information only while you are signed in and looking at it, and only to do the job the
+  on-screen tool is doing.</p>
+
+  <h2>4. What is stored, and for how long</h2>
+  <p>Everything below is written to your browser's extension storage <b>on this computer</b>. None of it is
+  transmitted anywhere by the extension.</p>
+
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th style="width:30%">What</th><th style="width:40%">Examples</th><th style="width:30%">How long</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="v">Your settings</td>
+        <td>Which tools are switched on, theme, clock and reminder preferences, note templates</td>
+        <td>Until you change them, reset, or remove the extension</td>
+      </tr>
+      <tr>
+        <td class="v">Call context</td>
+        <td>The note last written into a field, an unsent note draft, a callback entry (case number and
+            callback number), an address being carried between two tabs, a question typed into the
+            knowledge-base search</td>
+        <td>Short-lived by design. Individual items expire on their own &mdash; typically between one minute
+            and twelve hours &mdash; and are cleared by Reset or by removing the extension</td>
+      </tr>
+      <tr>
+        <td class="v">Cached reference data</td>
+        <td>Rate plans, device compatibility lists, store locations, international rates, tax tables</td>
+        <td>Refreshed periodically. Contains no personal information</td>
+      </tr>
+      <tr>
+        <td class="v">Diagnostics</td>
+        <td>A rolling on-screen log of the last few dozen call-handling events on this machine, used to
+            troubleshoot one specific telephony feature</td>
+        <td>Rolling window, this machine only. Never uploaded; shared only if you choose to copy it and send
+            it yourself</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The extension keeps no history of the calls you have taken, no record of which customers you have looked
+  at, and no log of what you do with it.</p>
+
+  <h2>5. Where information can travel</h2>
+  <p>Wrap God makes network requests only to do what a tool was asked to do. Every destination it can reach is
+  listed here, with what that destination receives.</p>
+
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th style="width:34%">Destination</th><th style="width:40%">What it receives</th><th style="width:26%">Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="v">Freedom Mobile / Quebecor work systems<br><span style="color:var(--ink-lo);font-weight:400">(customer management, agent desktop, workforce portal, knowledge base, internal APIs, ordering and activation portals, coverage tiles)</span></td>
+        <td>The same requests the site itself would make, sent as the signed-in agent &mdash; for example an
+            account lookup, a knowledge-base search, or a serviceability check for an address you typed</td>
+        <td>These are your employer's own systems, which you are already signed in to</td>
+      </tr>
+      <tr>
+        <td class="v">Google Maps</td>
+        <td>The address text typed into a store-finder or location box &mdash; sent from Freedom's own public
+            store-locator page, using that page's own Maps key, exactly as the page itself uses it</td>
+        <td>Address suggestions and map coordinates</td>
+      </tr>
+      <tr>
+        <td class="v">localcallingguide.com</td>
+        <td>A three-digit area code and three-digit exchange only. <b>Never a full phone number</b></td>
+        <td>Identifies which carrier a number range belongs to</td>
+      </tr>
+      <tr>
+        <td class="v">imei.info</td>
+        <td>A device <b>name</b>, such as a handset model. <b>Never an IMEI</b> &mdash; an IMEI you enter goes
+            only to Freedom's own compatibility API</td>
+        <td>Published radio-band specifications for a handset</td>
+      </tr>
+      <tr>
+        <td class="v">Purolator Quick Track</td>
+        <td>A tracking number you enter</td>
+        <td>Shows shipment status inside the tool</td>
+      </tr>
+      <tr>
+        <td class="v">Microsoft Forms</td>
+        <td>Nothing is sent. The extension fills an internal request form in front of you and
+            <b>never submits it</b> &mdash; you review and submit it yourself</td>
+        <td>Saves retyping details you already have on screen</td>
+      </tr>
+      <tr>
+        <td class="v">api.github.com</td>
+        <td>Nothing about you. One unauthenticated public request that checks whether a public reference
+            dataset has been updated</td>
+        <td>Tells the extension when its bundled device list is out of date</td>
+      </tr>
+      <tr>
+        <td class="v">Audio stream hosts<br><span style="color:var(--ink-lo);font-weight:400">(only if you play the optional radio)</span></td>
+        <td>The connection itself, as with any audio stream in a browser. No account, no identifier, nothing
+            about your work</td>
+        <td>Plays the stream you chose</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>There is no other destination. In particular there is no endpoint belonging to the developer, and no
+  analytics, crash-reporting or advertising service anywhere in the extension.</p>
+
+  <h2>6. What the extension never does</h2>
+  <ul class="never">
+    <li>It never collects or transmits <b>personal information to its developer</b>.</li>
+    <li>It never <b>sells or shares</b> information with third parties, and it is never used for advertising,
+      credit-scoring, lending or any purpose unrelated to the tool's single function.</li>
+    <li>It never records <b>audio or video</b>. It can measure the loudness of a call already playing through
+      your browser tab, to tell hold music from a voice; the sound is analysed as it plays and nothing is ever
+      captured, saved or sent.</li>
+    <li>It never reads your <b>passwords or credentials</b>, and never asks for any.</li>
+    <li>It never touches pages <b>outside its site list</b>.</li>
+  </ul>
+
+  <h2>7. Settings backup and restore</h2>
+  <p>The extension can export your settings to a file so you can move them to another machine, and import one
+  back. The export is deliberately built to carry <b>preferences only</b>: anything that came from a call is
+  excluded, including note drafts, callback entries with case and phone numbers, addresses in transit, typed
+  knowledge-base questions, and the case number and callback number attached to a reminder. The file is saved
+  by your browser to your own downloads &mdash; it is never uploaded anywhere.</p>
+
+  <h2>8. Permissions, in plain language</h2>
+
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th style="width:34%">Permission</th><th>What it is used for</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="v"><code>storage</code>, <code>unlimitedStorage</code></td><td>Keeps your settings and short-lived call context on this computer</td></tr>
+      <tr><td class="v"><code>alarms</code></td><td>Runs the on-screen clock's break, lunch and callback reminders</td></tr>
+      <tr><td class="v"><code>clipboardWrite</code></td><td>The Copy buttons</td></tr>
+      <tr><td class="v"><code>scripting</code></td><td>Places the tools onto the work pages listed above</td></tr>
+      <tr><td class="v"><code>offscreen</code></td><td>A hidden page that plays reminder tones and the optional radio, and measures call audio loudness</td></tr>
+      <tr><td class="v"><code>declarativeNetRequest</code></td><td>A fixed, six-rule list that removes only the headers preventing certain work pages from being displayed inside the tool's own frames. It does not read, block, redirect or record any network traffic</td></tr>
+      <tr><td class="v">Site access</td><td>The work sites listed in section 2, so the tools can run there. Two further sites are optional and asked for individually when first needed</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>9. Your choices</h2>
+  <ul>
+    <li>Every tool can be <b>switched off individually</b> in the extension's settings.</li>
+    <li><b>Reset</b> in settings clears what the extension has stored.</li>
+    <li>The optional site permissions can be <b>withdrawn at any time</b> from your browser's extension
+      settings page.</li>
+    <li><b>Removing the extension deletes all of its stored data from your computer.</b> Because nothing was
+      ever sent anywhere, there is nothing left elsewhere to delete.</li>
+  </ul>
+
+  <h2>10. Work accounts and employer systems</h2>
+  <p>Wrap God is used on employer-provided systems with employer-provided accounts. What those systems
+  themselves record about your session, and what your employer may do with it, is a matter between you and
+  your employer &mdash; this policy covers only the extension's own behaviour. Use of the extension does not
+  change your obligations under your employer's policies for handling customer information.</p>
+
+  <h2>11. Children</h2>
+  <p>Wrap God is a workplace tool for call-centre agents. It is not directed at children and is not intended
+  for anyone under 18.</p>
+
+  <h2>12. Changes to this policy</h2>
+  <p>If the extension's data handling changes, this page is updated and the date at the top changes with it.
+  The published address stays the same, so the version you are reading is always the current one.</p>
+
+  <h2>13. Contact</h2>
+  <p>Questions about this policy, or about anything the extension does with information, go to
+  <a href="mailto:contact@sarumonin.com">contact@sarumonin.com</a>.</p>
+  <p>If you believe the extension has handled something in a way this page does not describe, that address is
+  the right one to say so &mdash; it is read by the person who writes the code.</p>
+
+  <footer>
+    <b>Wrap God</b> &middot; privacy policy &middot; last updated 10 September 2026
+  </footer>
+
+</div>
+</body>
+</html>
